@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distraction Free YouTube</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f9f9f9;
+            color: #222;
+        }
+
+        /* Header */
+        header {
+            height: 65px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .search-box {
+            display: flex;
+            width: 45%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #ccc;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            padding: 0 22px;
+            border: 1px solid #ccc;
+            background: #f2f2f2;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+        }
+
+        .profile {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            height: calc(100vh - 65px);
+            background: white;
+            padding: 20px 12px;
+            position: fixed;
+            left: 0;
+            top: 65px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 14px 18px;
+            margin-bottom: 5px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #eee;
+        }
+
+        .sidebar .active {
+            background: #eee;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 220px;
+            width: calc(100% - 220px);
+            padding: 30px;
+        }
+
+        .focus-mode {
+            background: #111;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .focus-mode h2 {
+            margin-bottom: 8px;
+        }
+
+        .focus-mode p {
+            color: #bbb;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+
+        .category {
+            background: #eee;
+            padding: 9px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .category.active {
+            background: #222;
+            color: white;
+        }
+
+        /* Videos */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .thumbnail {
+            height: 180px;
+            background: linear-gradient(135deg, #222, #555);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 45px;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-info h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .channel {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .views {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1000px) {
+            .videos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-box {
+                width: 40%;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                display: none;
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .videos {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                width: 50%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            header {
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">YouTube Focus</div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search focused content...">
+            <button>🔍</button>
+        </div>
+
+        <div class="profile">U</div>
+    </header>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="#" class="active">🏠 Home</a>
+            <a href="#">🎓 Learning</a>
+            <a href="#">💻 Programming</a>
+            <a href="#">📚 Study</a>
+            <a href="#">🎵 Music</a>
+            <a href="#">🕐 Watch Later</a>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+
+            <!-- Focus Mode -->
+            <section class="focus-mode">
+                <h2>🎯 Distraction-Free Mode</h2>
+                <p>
+                    Focus on useful content without unnecessary recommendations,
+                    shorts, or distractions.
+                </p>
+            </section>
+
+            <!-- Categories -->
+            <div class="categories">
+                <div class="category active">All</div>
+                <div class="category">Programming</div>
+                <div class="category">Education</div>
+                <div class="category">Science</div>
+                <div class="category">Technology</div>
+                <div class="category">Music</div>
+            </div>
+
+            <!-- Video Grid -->
+            <section class="videos">
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>Learn HTML & CSS From Scratch</h3>
+                        <p class="channel">Code Academy</p>
+                        <p class="views">1.2M views • 2 weeks ago</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>JavaScript Full Course</h3>
+                        <p class="channel">Programming Hub</p>
+                        <p class="views">850K views • 1 month ago</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>How Computers Actually Work</h3>
+                        <p class="channel">Tech Explained</p>
+                        <p class="views">540K views • 3 weeks ago</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>Study With Me — 2 Hours</h3>
+                        <p class="channel">Focus Room</p>
+                        <p class="views">320K views • 5 days ago</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>CSS Flexbox Complete Tutorial</h3>
+                        <p class="channel">Web Dev School</p>
+                        <p class="views">760K views • 1 month ago</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="thumbnail">▶</div>
+                    <div class="video-info">
+                        <h3>Improve Your Productivity</h3>
+                        <p class="channel">Better Life</p>
+                        <p class="views">420K views • 2 weeks ago</p>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
